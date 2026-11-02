@@ -1,0 +1,13 @@
+torch>=2.1
+torchvision>=0.16
+timm>=0.9
+albumentations>=1.4
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+opencv-python
+tqdm
+kaggle
+kagglehub
