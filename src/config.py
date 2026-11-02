@@ -34,7 +34,7 @@ N_AGE_BINS = 10
 # Data loading
 IMG_SIZE = 384
 BATCH_SIZE = 16
-NUM_WORKERS = 8
+NUM_WORKERS = 4
 
 # Model
 BACKBONE = "efficientnet_b0"

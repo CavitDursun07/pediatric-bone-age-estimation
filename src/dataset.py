@@ -84,7 +84,7 @@ def make_loader(df, split, stats, img_size=config.IMG_SIZE, train=None, batch_si
     part = df[df["split"] == split].reset_index(drop=True)
     ds = BoneAgeDataset(part, get_transforms(train, img_size), *stats)
     return DataLoader(ds, batch_size=batch_size, shuffle=train, num_workers=config.NUM_WORKERS,
-                      pin_memory=True, drop_last=train, persistent_workers=True)
+                      pin_memory=True, drop_last=train, persistent_workers=train)
 
 
 def show_batch(loader, n=8, path=None):
