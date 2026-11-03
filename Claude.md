@@ -56,6 +56,7 @@ bone-age/
 │   ├── 07_test_results.ipynb       # Faz 6 (test seti bir kez, en sonda)
 │   └── 08_gradcam.ipynb            # Faz 8
 ├── outputs/                        # (git'e eklenmez) checkpoint, log, grafikler
+├── assets/                         # README için seçilmiş grafikler (git'e eklenir)
 └── .gitignore
 ```
 
