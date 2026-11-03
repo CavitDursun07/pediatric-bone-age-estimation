@@ -124,6 +124,7 @@ Her denemeyi tek değişiklikle yap ve val MAE'yi tabloya kaydet:
 2. Daha büyük backbone (EfficientNet-B3)
 3. TTA (Test Time Augmentation)
 4. Birkaç modelin ortalaması (ensemble)
+5. Farklı model tipi: ImageNet'siz, sıfırdan eğitilen CNN + sınıflandırma (her ay bir sınıf, Gauss soft label, tahmin = beklenen değer) → `scratch_cnn_cls`
 
 ### Faz 8 — Açıklanabilirlik (Grad-CAM)
 - Modelin elin hangi bölgelerine baktığını ısı haritası ile göster (büyüme plakaları, bilek kemikleri beklenir)
