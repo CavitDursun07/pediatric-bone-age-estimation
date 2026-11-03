@@ -79,7 +79,7 @@ Key EDA findings ([`02_eda.ipynb`](notebooks/02_eda.ipynb)):
 
 - **Ensembling gave the largest gain** (6.67 → 6.30 val MAE). TTA added about 0.1 months to every model.
 - **Transfer learning matters, but less than expected.** The from-scratch CNN reached 7.8 months, about 1.1 months behind the pretrained B0. It needed 4–5 epochs before it started learning, and it was still improving at epoch 30.
-- **A bigger backbone (B3) did not help here.** It early-stopped at epoch 17 while the cosine learning rate was still high, so it never benefited from the low-LR phase.
+- **A bigger backbone (B3) did not help here.** It early-stopped at epoch 17 while the cosine learning rate was still high, so it never reached the low-LR phase, which is a likely reason.
 - **Worst errors** ([`07_test_results.ipynb`](notebooks/07_test_results.ipynb)) fall into three groups: very dark or low-contrast images, unusual positioning (about 35° rotation, bent fingers), and images that look clean, which are likely label noise.
 
 ![Worst predictions](assets/worst10.png)
@@ -89,11 +89,11 @@ Key EDA findings ([`02_eda.ipynb`](notebooks/02_eda.ipynb)):
 - The test set is our own 10% split, not the official RSNA test set, so the comparison with the winner (4.27) is indicative only.
 - Training was done on a single GPU with limited epochs. Early stopping triggered while the cosine LR was still high for some runs. A longer patience, or starting early stopping only after a warm-up period, would likely help.
 - Grad-CAM shows the model sometimes attends to the **lead markers** ("L", initials), which is a possible shortcut. Cropping or segmenting the hand would remove it.
-- Labels come from single radiologist readings with atlas rounding, so an MAE far below about 4 months is unlikely to be meaningful on this data.
+- Labels are human readings concentrated on multiples of 6 and 12 months, so they contain noise that limits the achievable MAE.
 
 ## Project structure
 
-Everything is in Jupyter notebooks, ready for Google Colab.
+All code is in Jupyter notebooks.
 
 ```
 notebooks/
@@ -108,12 +108,10 @@ notebooks/
 └── 08_gradcam.ipynb             # explainability
 ```
 
-Every phase notebook starts with `%run 00_common.ipynb`. Training saves a full checkpoint after every epoch and resumes automatically if the session is interrupted.
+Every phase notebook starts with `%run 00_common.ipynb`. Training saves a full checkpoint after every epoch and resumes automatically if training is interrupted.
 
 ## How to run
 
-**Google Colab:** Upload the project folder to `MyDrive/bone-age/` and select a T4 GPU runtime. Then run the notebooks in order. At the start of every new session, run `01_setup_data.ipynb` first, because images are downloaded to the fast local disk.
-
-**Local:** `pip install -r requirements.txt`, then run the notebooks in order from the `notebooks/` folder. On Windows, the DataLoader uses `num_workers=0`, because classes defined in a notebook cannot be sent to worker processes.
+`pip install -r requirements.txt`, then run the notebooks in order from the `notebooks/` folder. On Windows, the DataLoader uses `num_workers=0`, because classes defined in a notebook cannot be sent to worker processes.
 
 Stack: PyTorch, timm, albumentations, scikit-learn, pandas, matplotlib.
